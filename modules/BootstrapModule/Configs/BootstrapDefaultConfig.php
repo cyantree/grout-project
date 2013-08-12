@@ -17,7 +17,7 @@ class BootstrapDefaultConfig extends BootstrapBaseConfig
     public $projectTitle = 'Grout application';
 
     // Needed for accessing debug messages and logs, should be 32 chars a-zA-Z0-9
-    public $internalAccessKey = null;
+    public $internalAccessKey = 'ReplaceGroutInternalAccessKey';
 
     // Activate development mode to access internal functionality
     public $developmentMode = false;

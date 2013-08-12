@@ -14,5 +14,8 @@
         "cyantree/grout": "dev-master",
         "doctrine/common": "2.3.0",
         "doctrine/orm": "2.*"
+    },
+    "scripts": {
+        "post-create-project-cmd": ["Cyantree\\Grout\\Composer\\Commands::onProjectCreated"]
     }
 }
