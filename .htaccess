@@ -1,0 +1,19 @@
+RewriteEngine On
+
+# Redirect to correct domain
+# RewriteCond %{HTTP_HOST} !^localhost$ [NC]
+# RewriteCond %{HTTP_HOST} !^www\. [NC]
+# RewriteRule ^(.*)$ http://www.example.com/$1 [R=301,L]
+
+# Redirect directories without trailing / to path with trailing slash, e. g. localhost/app/assets to localhost/app/assets/
+RewriteCond %{SCRIPT_FILENAME} -d
+RewriteRule ^(.*)[^/]$ $1/ [QSA,L]
+
+# Skip existing assets
+RewriteCond %{SCRIPT_FILENAME} -f
+RewriteRule ^assets/(.*)$ - [QSA,L]
+RewriteCond %{SCRIPT_FILENAME} -f
+RewriteRule ^admin/assets/(.*)$ - [QSA,L]
+
+# Process all other requests with app
+RewriteRule .* index.php?%{QUERY_STRING}&Grout_Authorization=%{HTTP:AUTHORIZATION} [L]
