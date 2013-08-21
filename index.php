@@ -27,6 +27,9 @@ chdir($init['frameworkPath']);
 // Init auto loader
 require_once($init['frameworkPath'] . 'vendor/autoload.php');
 AutoLoader::init();
+if(is_dir('source/')){
+	AutoLoader::registerNamespace('', 'source/');
+}
 
 // Setup request and application
 App::initEnvironment();
