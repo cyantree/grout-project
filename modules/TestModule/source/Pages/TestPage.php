@@ -7,6 +7,6 @@ class TestPage extends Page
 {
     public function parseTask()
     {
-        $this->setResult('Hello World');
+        $this->setResult('Hello Grout!');
     }
 }
