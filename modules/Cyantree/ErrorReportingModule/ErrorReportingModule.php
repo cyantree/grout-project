@@ -68,22 +68,23 @@ class ErrorReportingModule extends Module
         $this->suppressErrors = $e->type == 'stopErrorReporting';
     }
 
-//    public function _onShutdown()
-//    {
-//        if(!self::$_started){
-//            return;
-//        }
-//
-//        $error = error_get_last();
-//
-//        if ($error['type']) {
-//            $e = new ScriptError($error['type'], $error['message']);
-//            $e->file = $error['file'];
-//            $e->line = $error['line'];
-//
-//            $this->processError($e);
-//        }
-//    }
+    public function _onShutdown()
+    {
+        if(!self::$_started){
+            return;
+        }
+
+        $error = error_get_last();
+
+        if ($error !== null && $error['type'] == 1) {
+            $e = new ScriptError($error['type'], $error['message']);
+            $e->file = $error['file'];
+            $e->line = $error['line'];
+            $e->terminate = true;
+
+            $this->processError($e);
+        }
+    }
 
     /** @param $e Exception */
     public function _onException($e)
@@ -148,6 +149,7 @@ class ErrorReportingModule extends Module
 
         $sendErrorMail = $this->moduleConfig->email && !$this->_reportedErrors
             && ($this->moduleConfig->emailAllErrors || !$this->moduleConfig->file || !file_exists($this->moduleConfig->file) || !filesize($this->moduleConfig->file));
+
 
         $errorData = $data . chr(10) . '--' . chr(10) . chr(10);
 
@@ -289,6 +291,7 @@ class ErrorReportingModule extends Module
 
 
         set_exception_handler(array($this, '_onException'));
+        register_shutdown_function(array($this, '_onShutdown'));
 
         $this->_previousErrorReporting = error_reporting(0);
         $this->_previousDisplayErrors = ini_set('display_errors', false);
