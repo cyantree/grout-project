@@ -43,7 +43,7 @@ class WebConsolePage extends Page
                 }elseif(substr($arg, 0, 1) == '-'){
                     $s = explode('=', $arg, 2);
 
-                    $get[substr($s[0], 1)] = $s[1];
+                    $get[substr($s[0], 1)] = count($s) == 2 ? $s[1] : '';
                 }else{
                     $get[] = $arg;
                 }
