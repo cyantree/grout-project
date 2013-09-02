@@ -2,14 +2,13 @@
 namespace Grout\BootstrapModule;
 
 use Cyantree\Grout\App\Module;
-use Cyantree\Grout\AutoLoader;
-use Cyantree\Grout\Database\Database;
-use Cyantree\Grout\Database\PdoConnection;
 use Cyantree\Grout\DateTime\DateTime;
+use Cyantree\Grout\Filter\ArrayFilter;
 use Cyantree\Grout\Tools\AppTools;
 use Cyantree\Grout\Tools\ArrayTools;
 use DateTimeZone;
 use Grout\BootstrapModule\Configs\BootstrapBaseConfig;
+use Grout\Cyantree\BasicHttpAuthorizationModule\BasicHttpAuthorizationModule;
 
 class BootstrapModule extends Module
 {
@@ -32,10 +31,6 @@ class BootstrapModule extends Module
         date_default_timezone_set($this->moduleConfig->dateTimezone);
 
         $this->_initBaseModules();
-
-        $this->_initGlobals();
-
-        $this->_startup();
     }
 
     private function _initBaseModules()
@@ -56,23 +51,14 @@ class BootstrapModule extends Module
         }
     }
 
-    private function _initGlobals()
-    {
-    }
-
     public function initTask($task)
     {
-
-        if($this->moduleConfig->developmentMode && $task->request->urlParts->get(0) == 'console'){
-            $this->app->importModule('Cyantree\WebConsoleModule', 'console/');
-
-        }elseif($task->request->urlParts->get(0) == 'admin' && !$this->app->moduleImported('ManagedModule')){
-
-            $this->app->importModule('ManagedModule', 'admin/');
-
-        }elseif(!$this->app->moduleImported($this->config->needs('mainModule'))){
-
-            $this->app->importModule($this->config->needs('mainModule'));
+        $f = new ArrayFilter();
+        foreach ($this->config->needs('mainModules') as $mainModule) {
+            $f->setData($mainModule);
+            if (!$this->app->moduleImported($f->needs('type'))) {
+                $this->app->importModule($f->needs('type'), $f->get('url'), $f->get('config'), $f->get('config'));
+            }
         }
 
         parent::initTask($task);
@@ -88,12 +74,5 @@ class BootstrapModule extends Module
         if($factory->hasAppTool('appDoctrine')){
             $factory->appDoctrine()->close();
         }
-    }
-
-
-    private function _startup()
-    {
-        // >> Register development modules
-
     }
 }

@@ -18,7 +18,14 @@ $init = array(
     'bootstrap' => array(
         'module' => 'BootstrapModule',
         'config' => array(
-            'mainModule' => 'TestModule'
+            'mainModules' => array(
+                array(
+                    'module' => 'TestModule',
+                    'url' => null,
+                    'config' => null,
+                    'priority' => 0
+                )
+            )
         )
     )
 );
