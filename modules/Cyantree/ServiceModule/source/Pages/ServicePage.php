@@ -14,7 +14,7 @@ class ServicePage extends Page
     public function parseTask()
     {
         $this->_driver = new JsonDriver();
-        $this->_driver->commandNamespaces = ServiceFactory::get($this->app)->appConfig()->commandNamespaces;
+        $this->_driver->commandNamespaces = ServiceFactory::get($this->app, $this->task->module->id)->appConfig()->commandNamespaces;
 
         $this->_driver->processTask($this->task);
     }

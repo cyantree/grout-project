@@ -8,13 +8,14 @@ use Grout\Cyantree\ServiceModule\Types\ServiceConfig;
 class ServiceFactory extends GlobalFactory
 {
     /** @return ServiceFactory */
-    public static function get($app)
+    public static function get($app, $moduleId = 'Cyantree\ServiceModule')
     {
         /** @var ServiceFactory $factory */
-        $factory = GroutFactory::_getInstance($app, __CLASS__);
+        $factory = GroutFactory::_getInstance($app, __CLASS__, $moduleId);
 
         return $factory;
     }
+
 
     public function appConfig()
     {
@@ -23,7 +24,7 @@ class ServiceFactory extends GlobalFactory
         }
 
         /** @var ServiceConfig $tool */
-        $tool = $this->app->config->get('Cyantree\ServiceModule', 'Cyantree\ServiceModule', new ServiceConfig());
+        $tool = $this->app->config->get('Cyantree\ServiceModule', $this->context, new ServiceConfig());
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
@@ -36,7 +37,7 @@ class ServiceFactory extends GlobalFactory
         }
 
         /** @var ServiceModule $tool */
-        $tool = $this->app->getModuleByType('Cyantree\ServiceModule');
+        $tool = $this->app->getModuleById($this->context);
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
