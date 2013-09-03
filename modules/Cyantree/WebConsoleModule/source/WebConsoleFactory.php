@@ -22,10 +22,21 @@ class WebConsoleFactory extends GlobalFactory
             return $tool;
         }
 
-        $m = $this->app->getModuleByType('Cyantree\WebConsoleModule');
-
         /** @var WebConsoleConfig $tool */
         $tool = $this->app->config->get('Cyantree\WebConsoleModule', 'Cyantree\WebConsoleModule', new WebConsoleConfig());
+
+        $this->_setAppTool(__FUNCTION__, $tool);
+        return $tool;
+    }
+
+    public function appModule()
+    {
+        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
+            return $tool;
+        }
+
+        /** @var WebConsoleModule $tool */
+        $tool = $this->app->getModuleByType('Cyantree\WebConsoleModule');
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
