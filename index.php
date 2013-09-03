@@ -20,7 +20,7 @@ $init = array(
         'config' => array(
             'mainModules' => array(
                 array(
-                    'module' => 'TestModule',
+                    'type' => 'TestModule',
                     'url' => null,
                     'config' => null,
                     'priority' => 0
