@@ -46,7 +46,8 @@ class BootstrapDefaultConfig extends BootstrapBaseConfig
                 'host' => '127.0.0.1',
                 'user' => '',
                 'password' => '',
-                'collate' => 'utf8_general_ci'
+                'collate' => 'utf8_general_ci',
+                'charset' => 'utf8'
             );
             // $config->entityPaths = array($this->app->parseUri('path://path/to/entities/'));
 
