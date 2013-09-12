@@ -10,8 +10,10 @@
     ],
     "require": {
         "cyantree/grout": "0.0.*",
-        "doctrine/common": "2.3.0",
-        "doctrine/orm": "2.*"
+        "cyantree/grout-bucket-module": "0.0.*",
+        "cyantree/grout-error-reporting-module": "0.0.*",
+        "cyantree/grout-logging-module": "0.0.*",
+        "cyantree/grout-mail-module": "0.0.*",
     },
     "scripts": {
         "post-create-project-cmd": ["Cyantree\\Grout\\Composer\\Commands::onProjectCreated"]
