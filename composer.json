@@ -9,8 +9,8 @@
         {"name": "Christoph Schreiber", "email": "mail@cyantree.com"}
     ],
     "require": {
-        "cyantree/grout": "0.0.*",
-        "cyantree/grout-bucket-module": "0.0.*",
+        "cyantree/grout": "dev-master",
+        "cyantree/grout-bucket-module": "dev-master",
         "cyantree/grout-error-reporting-module": "0.0.*",
         "cyantree/grout-logging-module": "0.0.*",
         "cyantree/grout-mail-module": "0.0.*"
