@@ -14,7 +14,7 @@ class BootstrapModule extends Module
 {
     /** @var  BootstrapBaseConfig */
     public $moduleConfig;
-    
+
     public function init()
     {
 
@@ -53,15 +53,19 @@ class BootstrapModule extends Module
 
     public function initTask($task)
     {
-        $f = new ArrayFilter();
-        foreach ($this->config->needs('mainModules') as $mainModule) {
-            $f->setData($mainModule);
-            if (!$this->app->moduleImported($f->needs('type'))) {
-                $this->app->importModule($f->needs('type'), $f->get('url'), $f->get('config'), $f->get('config'));
+        if ($this->moduleConfig->developmentMode && $task->request->urlParts->get(0) === 'console' && !$this->app->moduleImported('Cyantree\WebConsoleModule')) {
+
+            $this->app->importModule('Cyantree\WebConsoleModule', 'console/');
+
+        } else {
+            $f = new ArrayFilter();
+            foreach ($this->config->needs('mainModules') as $mainModule) {
+                $f->setData($mainModule);
+                if (!$this->app->moduleImported($f->needs('type'))) {
+                    $this->app->importModule($f->needs('type'), $f->get('url'), $f->get('config'), $f->get('config'));
+                }
             }
         }
-
-        parent::initTask($task);
     }
 
     public function destroy()

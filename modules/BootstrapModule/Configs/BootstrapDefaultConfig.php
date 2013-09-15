@@ -53,7 +53,7 @@ class BootstrapDefaultConfig extends BootstrapBaseConfig
 
         }elseif($moduleOrPluginType == 'Cyantree\WebConsoleModule'){
             /** @var $config WebConsoleConfig */
-            // $config->commandNamespaces = array('Grout\BootstrapModule\WebConsoleCommands\\');
+            $config->commandNamespaces = array('Grout\BootstrapModule\WebConsoleCommands\\');
 
         }elseif($moduleOrPluginType == 'Cyantree\ErrorReportingModule'){
             /** @var $config ErrorReportingConfig */
