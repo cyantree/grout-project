@@ -1,6 +1,7 @@
 <?php
 namespace Grout\BootstrapModule;
 
+use Cyantree\Grout\App\Generators\Template\TemplateGenerator;
 use Cyantree\Grout\App\GroutFactory;
 use Cyantree\Grout\Bucket\Bucket;
 use Cyantree\Grout\Session\BucketSession;
@@ -101,6 +102,21 @@ class GlobalFactory extends GroutFactory
         /** @var DoctrineModule $module */
         $module = $this->app->importModule('Cyantree\DoctrineModule');
         $tool = $module->getEntityManager();
+
+        $this->_setAppTool(__FUNCTION__, $tool);
+        return $tool;
+    }
+
+    /** @return TemplateGenerator */
+    public function appTemplates()
+    {
+        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
+            return $tool;
+        }
+
+        $tool = new TemplateGenerator();
+        $tool->app = $this->app;
+        $tool->setTemplateContext(new GlobalTemplateContext());
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
