@@ -86,7 +86,7 @@ class GlobalFactory extends GroutFactory
         }
 
         $tool = new TaskManager();
-        $tool->directory = $this->app->parseUri('data://tasks/');
+        $tool->directory = $this->app->dataStorage->createStorage('Cyantree/Tasks/');
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
