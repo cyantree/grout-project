@@ -4,9 +4,13 @@ cyantree Grout-Project
 Changes
 -------
 
+### 0.0.7
+
+-   **CHANGE:** Updated module versions of "Cyantree\ErrorReportingModule" and "Cyantree\WebConsoleModule"
+
 ### 0.0.6
 
--  **CHANGE:** GlobalFactory. appTask() now uses DataStorage.
+-   **CHANGE:** GlobalFactory. appTask() now uses DataStorage.
 
 ### 0.0.5
 
