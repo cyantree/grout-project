@@ -7,8 +7,8 @@
          strict="false"
          verbose="true">
     <testsuites>
-        <testsuite name="Component Tests">
-            <directory>ComponentTests</directory>
+        <testsuite name="TestModule Tests">
+            <directory>TestModuleTests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
