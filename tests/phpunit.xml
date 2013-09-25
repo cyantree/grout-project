@@ -1,0 +1,14 @@
+<phpunit bootstrap="bootstrap.php"
+         colors="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         strict="false"
+         verbose="true">
+    <testsuites>
+        <testsuite name="Component Tests">
+            <directory>ComponentTests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

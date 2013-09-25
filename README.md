@@ -4,6 +4,10 @@ cyantree Grout-Project
 Changes
 -------
 
+### 0.1.0
+
+-   **FEATURE:** Added basic support for unit testing with PHPUnit
+
 ### 0.0.7
 
 -   **CHANGE:** Updated module versions of "Cyantree\ErrorReportingModule" and "Cyantree\WebConsoleModule"

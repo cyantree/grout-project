@@ -7,6 +7,6 @@ class TestModule extends Module
 {
     public function init()
     {
-        $this->addRoute('', 'TestPage');
+        $this->addNamedRoute('index', '', 'TestPage');
     }
 }
