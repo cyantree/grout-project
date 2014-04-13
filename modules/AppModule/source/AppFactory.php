@@ -6,12 +6,13 @@ use Cyantree\Grout\App\Generators\Template\TemplateGenerator;
 use Cyantree\Grout\App\GroutFactory;
 use Cyantree\Grout\Bucket\Bucket;
 use Cyantree\Grout\Bucket\FileBucket;
-use Cyantree\Grout\Experimental\Ui\ConstraintUi;
 use Cyantree\Grout\Filter\ArrayFilter;
 use Cyantree\Grout\Session\BucketSession;
 use Cyantree\Grout\Task\TaskManager;
+use Cyantree\Grout\Ui\Ui;
 use Doctrine\ORM\EntityManager;
 use Grout\AppModule\Helpers\AppQuick;
+use Grout\AppModule\Types\AppConfig;
 use Grout\AppModule\Types\AppTemplateContext;
 use Grout\Cyantree\DoctrineModule\DoctrineModule;
 
@@ -144,14 +145,14 @@ class AppFactory extends GroutFactory
         return $tool;
     }
 
-    /** @return ConstraintUi */
+    /** @return Ui */
     public function appUi()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
         }
 
-        $tool = new ConstraintUi();
+        $tool = new Ui();
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;

@@ -4,7 +4,6 @@ namespace Grout\AppModule\Types;
 use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\Generators\Template\TemplateContext;
 use Cyantree\Grout\App\GroutQuick;
-use Cyantree\Grout\Experimental\Ui\ConstraintUi;
 use Cyantree\Grout\Ui\Ui;
 use Grout\AppModule\AppFactory;
 use Grout\AppModule\Helpers\AppQuick;
@@ -17,7 +16,7 @@ class AppTemplateContext extends TemplateContext
     /** @var AppQuick */
     private $_q;
 
-    /** @var ConstraintUi */
+    /** @var Ui */
     private $_ui;
 
     /** @return AppFactory */
@@ -38,7 +37,7 @@ class AppTemplateContext extends TemplateContext
         return $this->_q;
     }
 
-    /** @return ConstraintUi */
+    /** @return Ui */
     public function ui()
     {
         if (!$this->_ui) {

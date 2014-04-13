@@ -3,7 +3,9 @@ namespace Grout\AppModule;
 
 use Cyantree\Grout\App\ConfigChain;
 use Cyantree\Grout\App\Module;
+use Cyantree\Grout\App\Types\ResponseCode;
 use Cyantree\Grout\DateTime\DateTime;
+use Cyantree\Grout\Filter\ArrayFilter;
 use DateTimeZone;
 use Grout\AppModule\Types\AppConfig;
 use Grout\Cyantree\BasicHttpAuthorizationModule\BasicHttpAuthorizationModule;
@@ -29,10 +31,11 @@ class AppModule extends Module
         DateTime::$local->setTimezone(new DateTimeZone($this->moduleConfig->dateTimezone));
         date_default_timezone_set($this->moduleConfig->dateTimezone);
 
-        $this->_initBaseModules();
+        $this->_initModules();
+        $this->_initRoutes();
     }
 
-    private function _initBaseModules()
+    private function _initModules()
     {
         $config = $this->app->getConfig();
 
@@ -52,6 +55,15 @@ class AppModule extends Module
         }
     }
 
+    private function _initRoutes()
+    {
+        $this->addRoute('', 'Pages\WelcomePage');
+
+        $this->addErrorRoute(ResponseCode::CODE_403, 'Pages\TemplatePage', array('template' => '403.html'));
+        $this->addErrorRoute(ResponseCode::CODE_404, 'Pages\TemplatePage', array('template' => '404.html'));
+        $this->addErrorRoute(ResponseCode::CODE_500, 'Pages\TemplatePage', array('template' => '500.html'));
+    }
+
     public function initTask($task)
     {
         $section = $task->request->urlParts->get(0);
@@ -61,7 +73,7 @@ class AppModule extends Module
             if (!$this->app->getConfig()->developmentMode) {
                 /** @var BasicHttpAuthorizationModule $module */
                 $module = $this->app->importModule('Cyantree\BasicHttpAuthorizationModule', 'console/');
-                $module->secureUrl('', 'console_9055', 'PvzeM6Ej3VSdkynf', $this->app->getConfig()->projectTitle);
+                $module->secureUrl('', '###AUTH_USER###', '###AUTH_PASS###', $this->app->getConfig()->projectTitle);
             }
 
             $this->app->importModule('Cyantree\WebConsoleModule', 'console/');
