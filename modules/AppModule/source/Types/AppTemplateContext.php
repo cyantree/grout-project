@@ -1,33 +1,35 @@
 <?php
-namespace Grout\BootstrapModule;
+namespace Grout\AppModule\Types;
 
 use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\Generators\Template\TemplateContext;
 use Cyantree\Grout\App\GroutQuick;
+use Cyantree\Grout\Experimental\Ui\ConstraintUi;
 use Cyantree\Grout\Ui\Ui;
-use Grout\BootstrapModule\GlobalFactory;
+use Grout\AppModule\AppFactory;
+use Grout\AppModule\Helpers\AppQuick;
 
-class GlobalTemplateContext extends TemplateContext
+class AppTemplateContext extends TemplateContext
 {
-    /** @var GlobalFactory */
+    /** @var AppFactory */
     private $_factory;
 
-    /** @var GroutQuick */
+    /** @var AppQuick */
     private $_q;
 
-    /** @var Ui */
+    /** @var ConstraintUi */
     private $_ui;
 
-    /** @return GlobalFactory */
+    /** @return AppFactory */
     public function factory()
     {
         if (!$this->_factory) {
-            $this->_factory = GlobalFactory::get($this->app);
+            $this->_factory = AppFactory::get($this->app);
         }
         return $this->_factory;
     }
 
-    /** @return GroutQuick */
+    /** @return AppQuick */
     public function q()
     {
         if (!$this->_q) {
@@ -36,7 +38,7 @@ class GlobalTemplateContext extends TemplateContext
         return $this->_q;
     }
 
-    /** @return Ui */
+    /** @return ConstraintUi */
     public function ui()
     {
         if (!$this->_ui) {

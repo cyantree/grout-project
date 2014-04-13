@@ -1,6 +1,7 @@
 <?php
 use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\Bootstrap;
+use Cyantree\Grout\App\ConsoleBootstrap;
 use Cyantree\Grout\AutoLoader;
 
 // Catch startup error
@@ -9,23 +10,18 @@ while(ob_get_level()){
     ob_end_clean();
 }
 
+$isConsole = php_sapi_name() == 'cli';
+
 // Update configuration to fit your setup
+$basePath = realpath(dirname(__FILE__)) . '/';
 $init = array(
-    'appId' => null,
-    'frameworkPath' => realpath(dirname(__FILE__).'/.').'/',
-    'dataPath' => realpath(dirname(__FILE__).'/data').'/',
+    'frameworkPath' => $basePath,
+    'dataPath' => $basePath . 'data/',
 
     'bootstrap' => array(
-        'module' => 'BootstrapModule',
+        'module' => 'AppModule',
         'config' => array(
-            'mainModules' => array(
-                array(
-                    'type' => 'TestModule',
-                    'url' => null,
-                    'config' => null,
-                    'priority' => 0
-                )
-            )
+            'config' => null // Enter your desired configuration name
         )
     )
 );
@@ -42,10 +38,20 @@ if(is_dir('source/')){
 App::initEnvironment();
 $app = new App();
 $app->dataPath = $init['dataPath'];
-$app->id = $init['appId'];
 
-$bootstrap = new Bootstrap($app);
-$request = $bootstrap->init($init['frameworkPath'], true);
+if ($isConsole) {
+    $bootstrap = new ConsoleBootstrap($app);
+    $bootstrap->frameworkPath = $init['frameworkPath'];
+    $request = $bootstrap->init();
+
+} else {
+    $bootstrap = new Bootstrap($app);
+    $bootstrap->frameworkPath = $init['frameworkPath'];
+    $bootstrap->usesModRewrite = true;
+    $bootstrap->checkForMagicQuotes = true;
+    $request = $bootstrap->init();
+}
+
 $request->config->set('startupError', $startupError);
 
 $app->init();
@@ -56,5 +62,8 @@ $app->importModule($init['bootstrap']['module'], null, $init['bootstrap']['confi
 $response = $app->processRequest($request);
 $app->destroy();
 
-$response->postHeaders();
+if (!$isConsole) {
+    $response->postHeaders();
+}
+
 echo $response->content;

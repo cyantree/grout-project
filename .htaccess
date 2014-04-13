@@ -2,8 +2,8 @@ RewriteEngine On
 
 # Redirect to correct domain
 # RewriteCond %{HTTP_HOST} !^localhost$ [NC]
-# RewriteCond %{HTTP_HOST} !^www\. [NC]
-# RewriteRule ^(.*)$ http://www.example.com/$1 [R=301,L]
+# RewriteCond %{HTTP_HOST} !^www\.example\.org$ [NC]
+# RewriteRule ^(.*)$ http://www.example.org/$1 [R=301,L]
 
 # Redirect directories without trailing / to path with trailing slash, e. g. localhost/app/assets to localhost/app/assets/
 RewriteCond %{SCRIPT_FILENAME} -d

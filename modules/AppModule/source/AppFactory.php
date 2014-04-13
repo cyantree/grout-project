@@ -1,35 +1,48 @@
 <?php
-namespace Grout\BootstrapModule;
+namespace Grout\AppModule;
 
+use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\Generators\Template\TemplateGenerator;
 use Cyantree\Grout\App\GroutFactory;
 use Cyantree\Grout\Bucket\Bucket;
-use Cyantree\Grout\Session\BucketSession;
+use Cyantree\Grout\Bucket\FileBucket;
+use Cyantree\Grout\Experimental\Ui\ConstraintUi;
 use Cyantree\Grout\Filter\ArrayFilter;
-use Cyantree\Grout\Logging;
-use Cyantree\Grout\Session\Session;
+use Cyantree\Grout\Session\BucketSession;
 use Cyantree\Grout\Task\TaskManager;
-use Cyantree\Grout\Ui\Ui;
-use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
-use Grout\Cyantree\BucketModule\BucketModule;
+use Grout\AppModule\Helpers\AppQuick;
+use Grout\AppModule\Types\AppTemplateContext;
 use Grout\Cyantree\DoctrineModule\DoctrineModule;
 
-class GlobalFactory extends GroutFactory
+class AppFactory extends GroutFactory
 {
     public function __construct()
     {
         parent::__construct();
     }
 
-    /** @return GlobalFactory */
-    public static function get($app)
+    /** @return AppFactory */
+    public static function get(App $app = null)
     {
-        return GroutFactory::_getInstance($app, __CLASS__);
+        return GroutFactory::_getInstance($app, __CLASS__, 'AppModule', 'AppModule');
     }
 
-    /** @return \Cyantree\Grout\Session\BucketSession */
+    /** @var AppConfig $tool */
+    public function appConfig()
+    {
+        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
+            return $tool;
+        }
+
+        /** @var AppConfig $tool */
+        $tool = $this->app->configs->getConfig('AppModule');
+
+        $this->_setAppTool(__FUNCTION__, $tool);
+        return $tool;
+    }
+
+    /** @return BucketSession */
     public function appSession()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
@@ -38,13 +51,9 @@ class GlobalFactory extends GroutFactory
 
         $tool = new BucketSession();
         $tool->bucketBase = $this->appBuckets();
-        $tool->name = 'Grout';
+        $tool->name = 'grout_' . substr(md5($this->app->getConfig()->internalAccessKey), 0, 8);
 
         $tool->load();
-
-        if ($tool->isNew) {
-            $tool->data = new ArrayFilter();
-        }
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
@@ -53,14 +62,13 @@ class GlobalFactory extends GroutFactory
     /** @return ArrayFilter */
     public function appSessionData()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        $session = $this->appSession();
+
+        if ($session->data === null) {
+            $session->data = new ArrayFilter();
         }
 
-        $tool = $this->appSession()->data;
-
-        $this->_setAppTool(__FUNCTION__, $tool);
-        return $tool;
+        return $session->data;
     }
 
     /** @return Bucket */
@@ -70,9 +78,8 @@ class GlobalFactory extends GroutFactory
             return $tool;
         }
 
-        /** @var BucketModule $module */
-        $module = $this->app->importModule('Cyantree\BucketModule');
-        $tool = $module->bucket;
+        $tool = new FileBucket();
+        $tool->directory = $this->app->dataStorage->createStorage('App\Buckets');
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
@@ -86,7 +93,8 @@ class GlobalFactory extends GroutFactory
         }
 
         $tool = new TaskManager();
-        $tool->directory = $this->app->dataStorage->createStorage('Cyantree/Tasks/');
+        $tool->directory = $this->app->dataStorage->createStorage('App\Tasks');
+        $tool->keepFailedTasks = true;
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
@@ -116,7 +124,34 @@ class GlobalFactory extends GroutFactory
 
         $tool = new TemplateGenerator();
         $tool->app = $this->app;
-        $tool->setTemplateContext(new GlobalTemplateContext());
+        $tool->setTemplateContext(new AppTemplateContext());
+
+        $this->_setAppTool(__FUNCTION__, $tool);
+        return $tool;
+    }
+
+    /** @return AppQuick */
+    public function appQuick()
+    {
+        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
+            return $tool;
+        }
+
+        $tool = new AppQuick($this->app);
+        $tool->publicAssetUrl = $this->app->publicUrl . $this->app->getConfig()->assetUrl;
+
+        $this->_setAppTool(__FUNCTION__, $tool);
+        return $tool;
+    }
+
+    /** @return ConstraintUi */
+    public function appUi()
+    {
+        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
+            return $tool;
+        }
+
+        $tool = new ConstraintUi();
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;

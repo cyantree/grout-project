@@ -1,5 +1,6 @@
 {
     "name": "cyantree/grout-project",
+    "version": "1.0",
     "type": "project",
     "description": "project template for Grout apps",
     "keywords": ["grout", "project", "template"],
@@ -9,12 +10,13 @@
         {"name": "Christoph Schreiber", "email": "mail@cyantree.com"}
     ],
     "require": {
-        "cyantree/grout": "0.1.*",
-        "cyantree/grout-bucket-module": "0.0.*",
-        "cyantree/grout-error-reporting-module": "0.1.*",
-        "cyantree/grout-logging-module": "0.0.*",
-        "cyantree/grout-mail-module": "0.0.*",
-        "cyantree/grout-web-console-module": "0.1.*"
+        "cyantree/grout": "1.*",
+        "cyantree/grout-error-reporting-module": "1.*",
+        "cyantree/grout-logging-module": "1.*",
+        "cyantree/grout-mail-module": "1.*",
+        "cyantree/grout-web-console-module": "1.*",
+        "cyantree/grout-doctrine-module": "1.*",
+        "cyantree/grout-basic-http-authorization-module": "1.*"
     },
     "scripts": {
         "post-create-project-cmd": ["Cyantree\\Grout\\Composer\\Commands::onProjectCreated"]
