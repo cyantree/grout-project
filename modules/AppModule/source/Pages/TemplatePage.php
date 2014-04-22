@@ -1,7 +1,6 @@
 <?php
 namespace Grout\AppModule\Pages;
 
-use Cyantree\Grout\App\Page;
 use Cyantree\Grout\Filter\ArrayFilter;
 use Grout\AppModule\Types\AppPage;
 

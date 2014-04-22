@@ -3,7 +3,7 @@ namespace Grout\AppModule\Types;
 
 use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\Generators\Template\TemplateContext;
-use Cyantree\Grout\App\GroutQuick;
+
 use Cyantree\Grout\Ui\Ui;
 use Grout\AppModule\AppFactory;
 use Grout\AppModule\Helpers\AppQuick;

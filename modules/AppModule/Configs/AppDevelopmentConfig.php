@@ -2,7 +2,6 @@
 namespace Grout\AppModule\Configs;
 
 use Cyantree\Grout\App\GroutAppConfig;
-use Grout\Cyantree\ManagedModule\Types\ManagedConfig;
 
 class AppDevelopmentConfig extends AppBaseConfig
 {

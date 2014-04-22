@@ -1,8 +1,6 @@
 <?php
 namespace Grout\AppModule\Pages;
 
-use Cyantree\Grout\App\Page;
-
 class WelcomePage extends TemplatePage
 {
     public function parseTask()

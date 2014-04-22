@@ -4,8 +4,7 @@ namespace Grout\AppModule;
 use Cyantree\Grout\App\ConfigChain;
 use Cyantree\Grout\App\Module;
 use Cyantree\Grout\App\Types\ResponseCode;
-use Cyantree\Grout\DateTime\DateTime;
-use Cyantree\Grout\Filter\ArrayFilter;
+
 use DateTimeZone;
 use Grout\AppModule\Types\AppConfig;
 use Grout\Cyantree\BasicHttpAuthorizationModule\BasicHttpAuthorizationModule;
@@ -73,7 +72,7 @@ class AppModule extends Module
             if (!$this->app->getConfig()->developmentMode) {
                 /** @var BasicHttpAuthorizationModule $module */
                 $module = $this->app->importModule('Cyantree\BasicHttpAuthorizationModule', 'console/');
-                $module->secureUrl('', '###AUTH_USER###', '###AUTH_PASS###', $this->app->getConfig()->projectTitle);
+                $module->secureUrl('%%any,.*%%', '###AUTH_USER###', '###AUTH_PASS###', $this->app->getConfig()->projectTitle);
             }
 
             $this->app->importModule('Cyantree\WebConsoleModule', 'console/');
