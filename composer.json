@@ -1,6 +1,6 @@
 {
     "name": "cyantree/grout-project",
-    "version": "1.1",
+    "version": "2.0",
     "type": "project",
     "description": "project template for grout apps",
     "keywords": ["grout", "project", "template"],
@@ -10,10 +10,10 @@
         {"name": "Christoph Schreiber", "email": "mail@cyantree.com"}
     ],
     "require": {
-        "cyantree/grout": "1.*",
+        "cyantree/grout": "2.*",
         "cyantree/grout-error-reporting-module": "1.*",
         "cyantree/grout-logging-module": "1.*",
-        "cyantree/grout-mail-module": "1.*",
+        "cyantree/grout-mail-module": "2.*",
         "cyantree/grout-web-console-module": "1.*",
         "cyantree/grout-doctrine-module": "1.*",
         "cyantree/grout-basic-http-authorization-module": "1.*"
