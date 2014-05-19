@@ -16,7 +16,12 @@ class HelpCommand extends AppWebConsoleCommand
 
     private function _showDevelopmentCommands()
     {
+        $ui = $this->factory()->appUi();
+        $config = $this->app->getConfig();
+
         $this->show($this->generateCommandLink('Setup --setup', 'Setup application'), true);
+        $this->show($ui->link('mails/' . $config->internalAccessKey . '/', 'Show mails', '_blank'), true);
+        $this->show($ui->link('logs/' . $config->internalAccessKey . '/', 'Show logs', '_blank'), true);
     }
 
     private function _showLiveCommands()
@@ -27,6 +32,7 @@ class HelpCommand extends AppWebConsoleCommand
         $this->show($this->generateCommandLink('ClearCaches', 'Recreate application caches'), true);
 
         $this->show($ui->link('errors/' . $config->internalAccessKey . '/', 'Show errors', '_blank'), true);
-        $this->show($ui->link('logs/' . $config->internalAccessKey . '/', 'Show logs', '_blank'), true);
+
+
     }
 }

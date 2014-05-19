@@ -8,7 +8,7 @@ use Cyantree\Grout\App\Types\ResponseCode;
 use Cyantree\Grout\DateTime\DateTime;
 use DateTimeZone;
 use Grout\AppModule\Types\AppConfig;
-use Grout\Cyantree\BasicHttpAuthorizationModule\BasicHttpAuthorizationModule;
+use Grout\Cyantree\BasicLoginModule\BasicLoginModule;
 
 class AppModule extends Module
 {
@@ -51,7 +51,7 @@ class AppModule extends Module
 
         // >> Init mail
         if ($this->moduleConfig->mail) {
-            $this->app->importModule('Cyantree\MailModule');
+            $this->app->importModule('Cyantree\MailModule', 'mails/' . $config->internalAccessKey . '/');
         }
     }
 
@@ -71,8 +71,8 @@ class AppModule extends Module
         // >> Init web console if needed
         if ($this->moduleConfig->webConsole && $section == 'console') {
             if (!$this->app->getConfig()->developmentMode) {
-                /** @var BasicHttpAuthorizationModule $module */
-                $module = $this->app->importModule('Cyantree\BasicHttpAuthorizationModule', 'console/');
+                /** @var BasicLoginModule $module */
+                $module = $this->app->importModule('Cyantree\BasicLoginModule', 'console/');
                 $module->secureUrl('%%any,.*%%', '###AUTH_USER###', '###AUTH_PASS###', $this->app->getConfig()->projectTitle);
             }
 

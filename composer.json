@@ -16,7 +16,7 @@
         "cyantree/grout-mail-module": "2.*",
         "cyantree/grout-web-console-module": "1.*",
         "cyantree/grout-doctrine-module": "1.*",
-        "cyantree/grout-basic-http-authorization-module": "1.*"
+        "cyantree/grout-basic-login-module": "1.*"
     },
     "scripts": {
         "post-create-project-cmd": ["Cyantree\\Grout\\Composer\\Commands::onProjectCreated"]
