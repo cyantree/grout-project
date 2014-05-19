@@ -36,6 +36,7 @@ class SetupCommand extends AppWebConsoleCommand
 
         $schema = new SchemaTool($doctrine);
         $metadata = $doctrine->getMetadataFactory()->getAllMetadata();
+        $doctrine->getProxyFactory()->generateProxyClasses($metadata);
 
         if ($this->request->args->get('drop-database')) {
             $schema->dropDatabase();

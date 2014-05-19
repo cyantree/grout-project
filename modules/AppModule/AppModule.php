@@ -5,6 +5,7 @@ use Cyantree\Grout\App\ConfigChain;
 use Cyantree\Grout\App\Module;
 use Cyantree\Grout\App\Types\ResponseCode;
 
+use Cyantree\Grout\DateTime\DateTime;
 use DateTimeZone;
 use Grout\AppModule\Types\AppConfig;
 use Grout\Cyantree\BasicHttpAuthorizationModule\BasicHttpAuthorizationModule;
