@@ -79,16 +79,4 @@ class AppModule extends Module
             $this->app->importModule('Cyantree\WebConsoleModule', 'console/');
         }
     }
-
-    public function destroy()
-    {
-        $factory = AppFactory::get($this->app);
-        if($factory->hasAppTool('appSession')){
-            $factory->appSession()->save();
-        }
-
-        if($factory->hasAppTool('appDoctrine')){
-            $factory->appDoctrine()->close();
-        }
-    }
 }

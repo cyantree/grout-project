@@ -6,6 +6,7 @@ use Cyantree\Grout\App\Generators\Template\TemplateGenerator;
 use Cyantree\Grout\App\GroutFactory;
 use Cyantree\Grout\Bucket\Bucket;
 use Cyantree\Grout\Bucket\FileBucket;
+use Cyantree\Grout\Event\Event;
 use Cyantree\Grout\Filter\ArrayFilter;
 use Cyantree\Grout\Session\BucketSession;
 use Cyantree\Grout\Task\TaskManager;
@@ -55,6 +56,10 @@ class AppFactory extends GroutFactory
         $tool->name = 'grout_' . substr(md5($this->app->getConfig()->internalAccessKey), 0, 8);
 
         $tool->load();
+
+        $this->app->events->join('destroy', function(Event $event, BucketSession $session) {
+                $session->save();
+            }, $tool);
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
