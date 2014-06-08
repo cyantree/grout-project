@@ -21,7 +21,10 @@ class TemplatePage extends AppPage
 
         $content = $this->factory()->appTemplates()->load($template, $templateData)->content;
 
-        $baseTemplate = $settings->get('baseTemplate', 'AppModule::base.html');
+        $baseTemplate = $settings->get('baseTemplate');
+        if ($baseTemplate === null) {
+            $baseTemplate = 'AppModule::base.html';
+        }
 
         if ($baseTemplate !== null && $baseTemplate !== false) {
             $content = $this->factory()->appTemplates()->load($baseTemplate, array('content' => $content))->content;
