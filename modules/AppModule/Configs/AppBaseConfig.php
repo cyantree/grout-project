@@ -44,6 +44,8 @@ class AppBaseConfig extends ConfigProvider
     public function configureCyantreeErrorReportingModule(ErrorReportingConfig $config)
     {
         $config->ignoreUploadSizeError = true;
+        $config->terminateNoticeError = true;
+        $config->convertErrorsToExceptions = true;
         $config->mode = 'show';
 
         // Uncomment and enter your reporting address
