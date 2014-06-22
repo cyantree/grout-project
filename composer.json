@@ -1,16 +1,23 @@
 {
     "name": "cyantree/grout-project",
-    "version": "2.2",
+    "version": "2.3",
     "type": "project",
     "description": "project template for grout apps",
-    "keywords": ["grout", "project", "template"],
+    "keywords": [
+        "grout",
+        "project",
+        "template"
+    ],
     "homepage": "https://github.com/cyantree/grout-project",
     "license": "LGPL-3.0",
     "authors": [
-        {"name": "Christoph Schreiber", "email": "mail@cyantree.com"}
+        {
+            "name": "Christoph Schreiber",
+            "email": "mail@cyantree.com"
+        }
     ],
     "require": {
-        "cyantree/grout": "3.*",
+        "cyantree/grout": "4.*",
         "cyantree/grout-error-reporting-module": "1.*",
         "cyantree/grout-logging-module": "1.*",
         "cyantree/grout-mail-module": "2.*",
@@ -19,6 +26,8 @@
         "cyantree/grout-basic-login-module": "1.*"
     },
     "scripts": {
-        "post-create-project-cmd": ["Cyantree\\Grout\\Composer\\Commands::onProjectCreated"]
+        "post-create-project-cmd": [
+            "Cyantree\\Grout\\Composer\\Commands::onProjectCreated"
+        ]
     }
 }
