@@ -30,7 +30,7 @@ class HelpCommand extends AppWebConsoleCommand
         $config = $this->app->getConfig();
 
         $this->show($this->generateCommandLink('ClearCaches', 'Recreate application caches'), true);
-        $this->show($this->generateCommandLink('UpdateDatabaseSchemaCommand', 'Update database schema'), true);
+        $this->show($this->generateCommandLink('UpdateDatabaseSchema', 'Update database schema'), true);
 
         $this->show($ui->link('errors/' . $config->internalAccessKey . '/', 'Show errors', '_blank'), true);
 
