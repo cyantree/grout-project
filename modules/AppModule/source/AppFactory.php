@@ -31,7 +31,7 @@ class AppFactory extends GroutFactory
     }
 
     /** @var AppConfig $tool */
-    public function appConfig()
+    public function config()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
@@ -45,14 +45,14 @@ class AppFactory extends GroutFactory
     }
 
     /** @return BucketSession */
-    public function appSession()
+    public function session()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
         }
 
         $tool = new BucketSession();
-        $tool->bucketBase = $this->appBuckets();
+        $tool->bucketBase = $this->buckets();
         $tool->name = 'grout_' . substr(md5($this->app->getConfig()->internalAccessKey), 0, 8);
 
         $tool->load();
@@ -66,9 +66,9 @@ class AppFactory extends GroutFactory
     }
 
     /** @return ArrayFilter */
-    public function appSessionData()
+    public function sessionData()
     {
-        $session = $this->appSession();
+        $session = $this->session();
 
         if ($session->data === null) {
             $session->data = new ArrayFilter();
@@ -78,7 +78,7 @@ class AppFactory extends GroutFactory
     }
 
     /** @return Bucket */
-    public function appBuckets()
+    public function buckets()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
@@ -92,7 +92,7 @@ class AppFactory extends GroutFactory
     }
 
     /** @return TaskManager */
-    public function appTasks()
+    public function tasks()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
@@ -107,7 +107,7 @@ class AppFactory extends GroutFactory
     }
 
     /** @return EntityManager */
-    public function appDoctrine()
+    public function doctrine()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
@@ -122,7 +122,7 @@ class AppFactory extends GroutFactory
     }
 
     /** @return TemplateGenerator */
-    public function appTemplates()
+    public function templates()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
@@ -137,7 +137,7 @@ class AppFactory extends GroutFactory
     }
 
     /** @return AppQuick */
-    public function appQuick()
+    public function quick()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;
@@ -151,7 +151,7 @@ class AppFactory extends GroutFactory
     }
 
     /** @return Ui */
-    public function appUi()
+    public function ui()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;

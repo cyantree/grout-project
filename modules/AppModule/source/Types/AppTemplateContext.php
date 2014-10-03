@@ -32,7 +32,7 @@ class AppTemplateContext extends TemplateContext
     public function q()
     {
         if (!$this->_q) {
-            $this->_q = $this->factory()->appQuick();
+            $this->_q = $this->factory()->quick();
         }
         return $this->_q;
     }
@@ -41,7 +41,7 @@ class AppTemplateContext extends TemplateContext
     public function ui()
     {
         if (!$this->_ui) {
-            $this->_ui = $this->factory()->appUi();
+            $this->_ui = $this->factory()->ui();
         }
         return $this->_ui;
     }

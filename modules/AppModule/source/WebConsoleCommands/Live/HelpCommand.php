@@ -16,7 +16,7 @@ class HelpCommand extends AppWebConsoleCommand
 
     private function _showDevelopmentCommands()
     {
-        $ui = $this->factory()->appUi();
+        $ui = $this->factory()->ui();
         $config = $this->app->getConfig();
 
         $this->show($this->generateCommandLink('Setup --setup', 'Setup application'), true);
@@ -26,7 +26,7 @@ class HelpCommand extends AppWebConsoleCommand
 
     private function _showLiveCommands()
     {
-        $ui = $this->factory()->appUi();
+        $ui = $this->factory()->ui();
         $config = $this->app->getConfig();
 
         $this->show($this->generateCommandLink('ClearCaches', 'Recreate application caches'), true);

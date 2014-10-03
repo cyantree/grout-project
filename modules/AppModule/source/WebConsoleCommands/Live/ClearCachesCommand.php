@@ -8,7 +8,7 @@ class ClearCachesCommand extends AppWebConsoleCommand
     public function execute()
     {
         $factory = $this->factory();
-        $doctrine = $factory->appDoctrine();
+        $doctrine = $factory->doctrine();
 
         $this->app->cacheStorage->deleteAllStorages();
 

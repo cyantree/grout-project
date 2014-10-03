@@ -29,7 +29,7 @@ class SetupCommand extends AppWebConsoleCommand
 
         $factory = $this->factory();
 
-        $doctrine = $factory->appDoctrine();
+        $doctrine = $factory->doctrine();
 
         $this->app->dataStorage->deleteAllStorages();
         $this->app->cacheStorage->deleteAllStorages();

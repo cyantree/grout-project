@@ -8,7 +8,7 @@ class UpdateDatabaseSchemaCommand extends AppWebConsoleCommand
 {
     public function execute()
     {
-        $d = $this->factory()->appDoctrine();
+        $d = $this->factory()->doctrine();
 
         $this->app->dataStorage->clearStorage('CyantreeDoctrineModule/Proxies');
         $this->app->cacheStorage->clearStorage('CyantreeDoctrineModule');

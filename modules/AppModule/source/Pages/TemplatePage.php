@@ -19,7 +19,7 @@ class TemplatePage extends AppPage
     {
         $settings = new ArrayFilter($settings);
 
-        $content = $this->factory()->appTemplates()->load($template, $templateData)->content;
+        $content = $this->factory()->templates()->load($template, $templateData)->content;
 
         $baseTemplate = $settings->get('baseTemplate');
         if ($baseTemplate === null) {
@@ -27,7 +27,7 @@ class TemplatePage extends AppPage
         }
 
         if ($baseTemplate !== null && $baseTemplate !== false) {
-            $content = $this->factory()->appTemplates()->load($baseTemplate, array('content' => $content))->content;
+            $content = $this->factory()->templates()->load($baseTemplate, array('content' => $content))->content;
         }
 
         $this->setResult($content, $settings->get('contentType'), $settings->get('responseCode'));
