@@ -10,43 +10,36 @@ while(ob_get_level()){
     ob_end_clean();
 }
 
+$applicationPath = './';
+$dataPath = $applicationPath . 'data/';
+
 $isConsole = php_sapi_name() == 'cli';
 
 // Update configuration to fit your setup
-$basePath = realpath(dirname(__FILE__)) . '/';
-$init = array(
-    'frameworkPath' => $basePath,
-    'dataPath' => $basePath . 'data/',
+$applicationPath = realpath(__DIR__ . '/' . $applicationPath) . '/';
 
-    'bootstrap' => array(
-        'module' => 'AppModule',
-        'config' => array(
-            'config' => null // Enter your desired configuration name
-        )
-    )
-);
-chdir($init['frameworkPath']);
+chdir($applicationPath);
 
 // Init auto loader
-require_once($init['frameworkPath'] . 'vendor/autoload.php');
+require_once($applicationPath . 'vendor/autoload.php');
 AutoLoader::init();
-if(is_dir('source/')){
-	AutoLoader::registerNamespace('', 'source/');
+if(is_dir($applicationPath . 'source/')){
+    AutoLoader::registerNamespace('', $applicationPath . 'source/');
 }
 
 // Setup request and application
 App::initEnvironment();
 $app = new App();
-$app->dataPath = $init['dataPath'];
+$app->dataPath = realpath(__DIR__ . '/' . $dataPath) . '/';
 
 if ($isConsole) {
     $bootstrap = new ConsoleBootstrap($app);
-    $bootstrap->frameworkPath = $init['frameworkPath'];
+    $bootstrap->applicationPath = $applicationPath;
     $request = $bootstrap->init();
 
 } else {
     $bootstrap = new Bootstrap($app);
-    $bootstrap->frameworkPath = $init['frameworkPath'];
+    $bootstrap->applicationPath = $applicationPath;
     $bootstrap->usesModRewrite = true;
     $bootstrap->checkForMagicQuotes = true;
     $request = $bootstrap->init();
@@ -57,7 +50,7 @@ $request->config->set('startupError', $startupError);
 $app->init();
 
 // Import bootstrap module and process request
-$app->importModule($init['bootstrap']['module'], null, $init['bootstrap']['config']);
+$app->importModule('AppModule');
 
 $response = $app->processRequest($request);
 $app->destroy();
