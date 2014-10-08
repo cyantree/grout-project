@@ -27,7 +27,7 @@ class AppFactory extends GroutFactory
     /** @return AppFactory */
     public static function get(App $app = null)
     {
-        return GroutFactory::_getInstance($app, __CLASS__, 'AppModule', 'AppModule');
+        return GroutFactory::getFactory($app, __CLASS__, 'AppModule', 'AppModule');
     }
 
     /** @var AppConfig $tool */
