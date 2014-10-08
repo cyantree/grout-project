@@ -33,35 +33,33 @@ class AppFactory extends GroutFactory
     /** @var AppConfig $tool */
     public function config()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            /** @var AppConfig $tool */
+            $tool = $this->app->configs->getConfig('AppModule');
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        /** @var AppConfig $tool */
-        $tool = $this->app->configs->getConfig('AppModule');
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 
     /** @return BucketSession */
     public function session()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            $tool = new BucketSession();
+            $tool->bucketBase = $this->buckets();
+            $tool->name = 'grout_' . substr(md5($this->app->getConfig()->internalAccessKey), 0, 8);
+
+            $tool->load();
+
+            $this->app->events->join('destroy', function(Event $event, BucketSession $session) {
+                      $session->save();
+                  }, $tool);
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        $tool = new BucketSession();
-        $tool->bucketBase = $this->buckets();
-        $tool->name = 'grout_' . substr(md5($this->app->getConfig()->internalAccessKey), 0, 8);
-
-        $tool->load();
-
-        $this->app->events->join('destroy', function(Event $event, BucketSession $session) {
-                $session->save();
-            }, $tool);
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 
@@ -80,86 +78,80 @@ class AppFactory extends GroutFactory
     /** @return Bucket */
     public function buckets()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            $tool = new FileBucket();
+            $tool->directory = $this->app->dataStorage->createStorage('App\Buckets');
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        $tool = new FileBucket();
-        $tool->directory = $this->app->dataStorage->createStorage('App\Buckets');
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 
     /** @return TaskManager */
     public function tasks()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            $tool = new TaskManager();
+            $tool->directory = $this->app->dataStorage->createStorage('App\Tasks');
+            $tool->keepFailedTasks = true;
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        $tool = new TaskManager();
-        $tool->directory = $this->app->dataStorage->createStorage('App\Tasks');
-        $tool->keepFailedTasks = true;
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 
     /** @return EntityManager */
     public function doctrine()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            /** @var DoctrineModule $module */
+            $module = $this->app->importModule('Cyantree\DoctrineModule');
+            $tool = $module->getEntityManager();
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        /** @var DoctrineModule $module */
-        $module = $this->app->importModule('Cyantree\DoctrineModule');
-        $tool = $module->getEntityManager();
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 
     /** @return TemplateGenerator */
     public function templates()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            $tool = new TemplateGenerator();
+            $tool->app = $this->app;
+            $tool->setTemplateContext(new AppTemplateContext());
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        $tool = new TemplateGenerator();
-        $tool->app = $this->app;
-        $tool->setTemplateContext(new AppTemplateContext());
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 
     /** @return AppQuick */
     public function quick()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            $tool = new AppQuick($this->app);
+            $tool->publicAssetUrl = $this->app->publicUrl . $this->app->getConfig()->assetUrl;
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        $tool = new AppQuick($this->app);
-        $tool->publicAssetUrl = $this->app->publicUrl . $this->app->getConfig()->assetUrl;
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 
     /** @return Ui */
     public function ui()
     {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
+        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+            $tool = new Ui();
+
+            $this->setTool(__FUNCTION__, $tool);
         }
 
-        $tool = new Ui();
-
-        $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;
     }
 }
