@@ -8,7 +8,7 @@ use Cyantree\Grout\App\Types\ResponseCode;
 use Cyantree\Grout\DateTime\DateTime;
 use DateTimeZone;
 use Grout\AppModule\Types\AppConfig;
-use Grout\Cyantree\BasicLoginModule\BasicLoginModule;
+use Grout\Cyantree\AclModule\AclModule;
 
 class AppModule extends Module
 {
@@ -37,21 +37,27 @@ class AppModule extends Module
 
     private function _initModules()
     {
-        $config = $this->app->getConfig();
+        // >> Init ACL
+        /** @var AclModule $acl */
+        $acl = $this->app->importModule('Cyantree\AclModule', null, null, null, 1000);
+
+        if (!$this->app->getConfig()->developmentMode) {
+            $acl->secureUrl('internal/%%any,.*%%', 'Internal', 'root');
+        }
 
         // >> Init logging
         if ($this->moduleConfig->logging) {
-            $this->app->importModule('Cyantree\LoggingModule', 'logs/' . $config->internalAccessKey . '/');
+            $this->app->importModule('Cyantree\LoggingModule', 'internal/logs/');
         }
 
         // >> Init error reporting
         if ($this->moduleConfig->errorReporting) {
-            $this->app->importModule('Cyantree\ErrorReportingModule', 'errors/' . $config->internalAccessKey . '/');
+            $this->app->importModule('Cyantree\ErrorReportingModule', 'internal/errors/');
         }
 
         // >> Init mail
         if ($this->moduleConfig->mail) {
-            $this->app->importModule('Cyantree\MailModule', 'mails/' . $config->internalAccessKey . '/');
+            $this->app->importModule('Cyantree\MailModule', 'internal/mails/');
         }
     }
 
@@ -66,17 +72,9 @@ class AppModule extends Module
 
     public function initTask($task)
     {
-        $section = $task->request->urlParts->get(0);
-
         // >> Init web console if needed
-        if ($this->moduleConfig->webConsole && $section == 'console') {
-            if (!$this->app->getConfig()->developmentMode) {
-                /** @var BasicLoginModule $module */
-                $module = $this->app->importModule('Cyantree\BasicLoginModule', 'console/');
-                $module->secureUrl('%%any,.*%%', '###AUTH_USER###', '###AUTH_PASS###', $this->app->getConfig()->projectTitle);
-            }
-
-            $this->app->importModule('Cyantree\WebConsoleModule', 'console/');
+        if ($this->moduleConfig->webConsole && preg_match('!^internal/console/!', $task->request->url)) {
+            $this->app->importModule('Cyantree\WebConsoleModule', 'internal/console/');
         }
     }
 }

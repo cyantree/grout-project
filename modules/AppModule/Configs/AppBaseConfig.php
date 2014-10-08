@@ -4,6 +4,9 @@ namespace Grout\AppModule\Configs;
 use Cyantree\Grout\App\Config\ConfigProvider;
 use Cyantree\Grout\App\GroutAppConfig;
 use Grout\AppModule\Types\AppConfig;
+use Grout\Cyantree\AclModule\Types\AclAccount;
+use Grout\Cyantree\AclModule\Types\AclConfig;
+use Grout\Cyantree\AclModule\Types\AclRole;
 use Grout\Cyantree\DoctrineModule\Types\DoctrineConfig;
 use Grout\Cyantree\ErrorReportingModule\Types\ErrorReportingConfig;
 use Grout\Cyantree\LoggingModule\Types\LoggingConfig;
@@ -75,5 +78,11 @@ class AppBaseConfig extends ConfigProvider
         $config->commandNamespaces[] = 'Grout\AppModule\WebConsoleCommands\Live\\';
 
         $config->defaultCommand = 'Help';
+    }
+
+    public function configureCyantreeAclModule(AclConfig $config)
+    {
+        $config->addRole(new AclRole('root', array('*')), 'guest');
+        $config->addAccount(new AclAccount('root', '###ROOT_PASS###', 'root'));
     }
 }
