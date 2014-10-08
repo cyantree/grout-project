@@ -4,6 +4,8 @@ use Cyantree\Grout\App\Bootstrap;
 use Cyantree\Grout\App\ConsoleBootstrap;
 use Cyantree\Grout\AutoLoader;
 
+$timeStarted = microtime(true);
+
 // Catch startup error
 $startupError = error_get_last();
 while(ob_get_level()){
@@ -29,7 +31,7 @@ if(is_dir($applicationPath . 'source/')){
 
 // Setup request and application
 App::initEnvironment();
-$app = new App();
+$app = new App(null, $timeStarted);
 $app->dataPath = realpath(__DIR__ . '/' . $dataPath) . '/';
 
 if ($isConsole) {
