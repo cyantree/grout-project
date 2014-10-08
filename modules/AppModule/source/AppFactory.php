@@ -154,4 +154,14 @@ class AppFactory extends GroutFactory
 
         return $tool;
     }
+
+    public function log($data)
+    {
+        $this->app->events->trigger('log', $data);
+    }
+
+    public function logException($exception)
+    {
+        $this->app->events->trigger('logException', $exception);
+    }
 }
