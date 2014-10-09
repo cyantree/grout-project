@@ -31,11 +31,11 @@ class AppModule extends Module
         DateTime::$local->setTimezone(new DateTimeZone($this->moduleConfig->dateTimezone));
         date_default_timezone_set($this->moduleConfig->dateTimezone);
 
-        $this->_initModules();
-        $this->_initRoutes();
+        $this->initModules();
+        $this->initRoutes();
     }
 
-    private function _initModules()
+    private function initModules()
     {
         // >> Init ACL
         /** @var AclModule $acl */
@@ -61,7 +61,7 @@ class AppModule extends Module
         }
     }
 
-    private function _initRoutes()
+    private function initRoutes()
     {
         $this->addRoute('', 'Pages\WelcomePage');
 

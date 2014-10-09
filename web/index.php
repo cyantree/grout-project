@@ -8,7 +8,7 @@ $timeStarted = microtime(true);
 
 // Catch startup error
 $startupError = error_get_last();
-while(ob_get_level()){
+while (ob_get_level()) {
     ob_end_clean();
 }
 
@@ -25,7 +25,7 @@ chdir($applicationPath);
 // Init auto loader
 require_once($applicationPath . 'vendor/autoload.php');
 AutoLoader::init();
-if(is_dir($applicationPath . 'source/')){
+if (is_dir($applicationPath . 'source/')) {
     AutoLoader::registerNamespace('', $applicationPath . 'source/');
 }
 

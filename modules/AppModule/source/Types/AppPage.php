@@ -7,15 +7,15 @@ use Grout\AppModule\AppFactory;
 class AppPage extends Page
 {
     /** @var AppFactory */
-    private $_factory;
+    private $factory;
 
     /** @return AppFactory */
     public function factory()
     {
-        if ($this->_factory === null) {
-            $this->_factory = AppFactory::get($this->app);
+        if ($this->factory === null) {
+            $this->factory = AppFactory::get($this->app);
         }
 
-        return $this->_factory;
+        return $this->factory;
     }
 }

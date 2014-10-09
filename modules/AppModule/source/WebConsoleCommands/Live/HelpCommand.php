@@ -8,13 +8,13 @@ class HelpCommand extends AppWebConsoleCommand
     public function execute()
     {
         if ($this->app->getConfig()->developmentMode) {
-            $this->_showDevelopmentCommands();
+            $this->showDevelopmentCommands();
         }
 
-        $this->_showLiveCommands();
+        $this->showLiveCommands();
     }
 
-    private function _showDevelopmentCommands()
+    private function showDevelopmentCommands()
     {
         $ui = $this->factory()->ui();
 
@@ -23,7 +23,7 @@ class HelpCommand extends AppWebConsoleCommand
         $this->show($ui->link('internal/logs/', 'Show logs', '_blank'), true);
     }
 
-    private function _showLiveCommands()
+    private function showLiveCommands()
     {
         $ui = $this->factory()->ui();
 

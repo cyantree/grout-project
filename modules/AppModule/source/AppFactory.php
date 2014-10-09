@@ -53,9 +53,9 @@ class AppFactory extends GroutFactory
 
             $tool->load();
 
-            $this->app->events->join('destroy', function(Event $event, BucketSession $session) {
+            $this->app->events->join('destroy', function (Event $event, BucketSession $session) {
                       $session->save();
-                  }, $tool);
+            }, $tool);
 
             $this->setTool(__FUNCTION__, $tool);
         }

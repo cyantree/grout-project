@@ -11,38 +11,38 @@ use Grout\AppModule\Helpers\AppQuick;
 class AppTemplateContext extends TemplateContext
 {
     /** @var AppFactory */
-    private $_factory;
+    private $factory;
 
     /** @var AppQuick */
-    private $_q;
+    private $q;
 
     /** @var Ui */
-    private $_ui;
+    private $ui;
 
     /** @return AppFactory */
     public function factory()
     {
-        if (!$this->_factory) {
-            $this->_factory = AppFactory::get($this->app);
+        if (!$this->factory) {
+            $this->factory = AppFactory::get($this->app);
         }
-        return $this->_factory;
+        return $this->factory;
     }
 
     /** @return AppQuick */
     public function q()
     {
-        if (!$this->_q) {
-            $this->_q = $this->factory()->quick();
+        if (!$this->q) {
+            $this->q = $this->factory()->quick();
         }
-        return $this->_q;
+        return $this->q;
     }
 
     /** @return Ui */
     public function ui()
     {
-        if (!$this->_ui) {
-            $this->_ui = $this->factory()->ui();
+        if (!$this->ui) {
+            $this->ui = $this->factory()->ui();
         }
-        return $this->_ui;
+        return $this->ui;
     }
 }

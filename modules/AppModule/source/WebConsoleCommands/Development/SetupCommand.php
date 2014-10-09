@@ -9,21 +9,21 @@ class SetupCommand extends AppWebConsoleCommand
     public function execute()
     {
         if (!$this->request->args->get('setup')) {
-            $this->_showHelp();
+            $this->showHelp();
 
         } else {
-            $this->_setup();
+            $this->setup();
         }
     }
 
-    private function _showHelp()
+    private function showHelp()
     {
         $this->show('Execute with --setup to run setup.');
 
         $this->show('--drop-database: Drops whole database and recreates all tables. Use with caution!');
     }
 
-    private function _setup()
+    private function setup()
     {
         $this->show('Application will be set up.');
 
