@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 
 class SampleEntity
 {
-    public static $_CLASS_ = __CLASS__;
+    public static $CLASS = __CLASS__;
 
     public $id;
     public $text;
