@@ -17,7 +17,7 @@
     ],
     "require": {
         "cyantree/grout": "5.*@dev",
-        "cyantree/grout-error-reporting-module": "1.*@dev",
+        "cyantree/grout-error-reporting-module": "2.*@dev",
         "cyantree/grout-logging-module": "1.*@dev",
         "cyantree/grout-mail-module": "2.*@dev",
         "cyantree/grout-web-console-module": "2.*@dev",
