@@ -135,7 +135,6 @@ class AppFactory extends GroutFactory
     {
         if (!($tool = $this->getTool(__FUNCTION__, false))) {
             $tool = new AppQuick($this->app);
-            $tool->publicAssetUrl = $this->app->publicUrl . $this->app->getConfig()->assetUrl;
 
             $this->setTool(__FUNCTION__, $tool);
         }
