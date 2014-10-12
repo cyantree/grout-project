@@ -83,6 +83,6 @@ class AppBaseConfig extends ConfigProvider
     public function configureCyantreeAclModule(AclConfig $config)
     {
         $config->addRole(new AclRole('root', array('*')), 'guest');
-        $config->addAccount(new AclAccount('root', '###ROOT_PASS###', 'root'));
+        $config->addAccount(new AclAccount('root', '###ROOT_PASS###'), 'root');
     }
 }
