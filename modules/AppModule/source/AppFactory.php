@@ -33,7 +33,7 @@ class AppFactory extends GroutFactory
     /** @var AppConfig $tool */
     public function config()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             /** @var AppConfig $tool */
             $tool = $this->app->configs->getConfig('AppModule');
 
@@ -46,7 +46,7 @@ class AppFactory extends GroutFactory
     /** @return BucketSession */
     public function session()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             $tool = new BucketSession();
             $tool->bucketBase = $this->buckets();
             $tool->name = 'grout_' . substr(md5($this->app->getConfig()->internalAccessKey), 0, 8);
@@ -78,7 +78,7 @@ class AppFactory extends GroutFactory
     /** @return Bucket */
     public function buckets()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             $tool = new FileBucket();
             $tool->directory = $this->app->dataStorage->createStorage('App\Buckets');
 
@@ -91,7 +91,7 @@ class AppFactory extends GroutFactory
     /** @return TaskManager */
     public function tasks()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             $tool = new TaskManager();
             $tool->directory = $this->app->dataStorage->createStorage('App\Tasks');
             $tool->keepFailedTasks = true;
@@ -105,7 +105,7 @@ class AppFactory extends GroutFactory
     /** @return EntityManager */
     public function doctrine()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             /** @var DoctrineModule $module */
             $module = $this->app->importModule('Cyantree\DoctrineModule');
             $tool = $module->getEntityManager();
@@ -119,7 +119,7 @@ class AppFactory extends GroutFactory
     /** @return TemplateGenerator */
     public function templates()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             $tool = new TemplateGenerator();
             $tool->app = $this->app;
             $tool->setTemplateContext(new AppTemplateContext());
@@ -133,7 +133,7 @@ class AppFactory extends GroutFactory
     /** @return AppQuick */
     public function quick()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             $tool = new AppQuick($this->app);
 
             $this->setTool(__FUNCTION__, $tool);
@@ -145,7 +145,7 @@ class AppFactory extends GroutFactory
     /** @return Ui */
     public function ui()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             $tool = new Ui();
 
             $this->setTool(__FUNCTION__, $tool);
