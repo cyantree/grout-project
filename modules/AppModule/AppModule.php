@@ -9,6 +9,7 @@ use Cyantree\Grout\DateTime\DateTime;
 use DateTimeZone;
 use Grout\AppModule\Types\AppConfig;
 use Grout\Cyantree\AclModule\AclModule;
+use Grout\Cyantree\AclModule\Types\AclRule;
 
 class AppModule extends Module
 {
@@ -42,7 +43,7 @@ class AppModule extends Module
         $acl = $this->app->importModule('Cyantree\AclModule', null, null, null, 1000);
 
         if (!$this->app->getConfig()->developmentMode) {
-            $acl->secureUrl('internal/%%any,.*%%', 'Internal', 'root');
+            $acl->secureUrlRecursive('internal/', new AclRule('root'), 'Internal');
         }
 
         // >> Init logging
