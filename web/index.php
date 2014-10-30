@@ -57,8 +57,6 @@ $app->importModule('AppModule');
 $response = $app->processRequest($request);
 $app->destroy();
 
-if (!$isConsole) {
-    $response->postHeaders();
-}
+$response->postHeaders();
 
 echo $response->content;
