@@ -28,5 +28,13 @@
         "post-create-project-cmd": [
             "Cyantree\\Grout\\Composer\\Commands::onProjectCreated"
         ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Grout\\": [
+                "modules/",
+                "plugins/"
+            ]
+        }
     }
 }

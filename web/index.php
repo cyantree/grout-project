@@ -2,7 +2,6 @@
 use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\Bootstrap;
 use Cyantree\Grout\App\ConsoleBootstrap;
-use Cyantree\Grout\AutoLoader;
 
 $timeStarted = microtime(true);
 
@@ -21,13 +20,6 @@ $isConsole = php_sapi_name() == 'cli';
 $applicationPath = realpath(__DIR__ . '/' . $applicationPath) . '/';
 
 chdir($applicationPath);
-
-// Init auto loader
-require_once($applicationPath . 'vendor/autoload.php');
-AutoLoader::init();
-if (is_dir($applicationPath . 'source/')) {
-    AutoLoader::registerNamespace('', $applicationPath . 'source/');
-}
 
 // Setup request and application
 App::initEnvironment();
