@@ -7,6 +7,7 @@ use Grout\AppModule\Types\AppConfig;
 use Grout\Cyantree\AclModule\Types\AclAccount;
 use Grout\Cyantree\AclModule\Types\AclConfig;
 use Grout\Cyantree\AclModule\Types\AclRole;
+use Grout\Cyantree\DoctrineModule\ConnectionDetails\PdoMySqlConnectionDetails;
 use Grout\Cyantree\DoctrineModule\Types\DoctrineConfig;
 use Grout\Cyantree\ErrorReportingModule\Types\ErrorReportingConfig;
 use Grout\Cyantree\LoggingModule\Types\LoggingConfig;
@@ -29,15 +30,7 @@ class AppBaseConfig extends ConfigProvider
 
     public function configureCyantreeDoctrineModule(DoctrineConfig $config)
     {
-        $config->connectionDetails = array(
-            'driver' => 'pdo_mysql',
-            'dbname' => 'your_database',
-            'host' => '127.0.0.1',
-            'user' => 'root',
-            'password' => '',
-            'collate' => 'utf8_general_ci',
-            'charset' => 'utf8'
-        );
+        $config->connectionDetails = new PdoMySqlConnectionDetails();
 
         $config->entityPaths[] = $this->app->path . 'modules/AppModule/source/Entities';
 
