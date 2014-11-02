@@ -102,13 +102,24 @@ class AppFactory extends GroutFactory
         return $tool;
     }
 
+    /** @return DoctrineModule */
+    public function doctrineModule()
+    {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
+            /** @var DoctrineModule $tool */
+            $tool = $this->app->importModule('Cyantree\DoctrineModule');
+
+            $this->setTool(__FUNCTION__, $tool);
+        }
+
+        return $tool;
+    }
+
     /** @return EntityManager */
     public function doctrine()
     {
         if (!($tool = $this->retrieveTool(__FUNCTION__))) {
-            /** @var DoctrineModule $module */
-            $module = $this->app->importModule('Cyantree\DoctrineModule');
-            $tool = $module->getEntityManager();
+            $tool = $this->doctrineModule()->getEntityManager();
 
             $this->setTool(__FUNCTION__, $tool);
         }
