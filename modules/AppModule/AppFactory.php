@@ -30,7 +30,7 @@ class AppFactory extends GroutFactory
         return GroutFactory::getFactory($app, __CLASS__, 'AppModule', 'AppModule');
     }
 
-    /** @retun AppConfig */
+    /** @return AppConfig */
     public function config()
     {
         if (!($tool = $this->retrieveTool(__FUNCTION__))) {
