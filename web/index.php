@@ -21,6 +21,9 @@ $applicationPath = realpath(__DIR__ . '/' . $applicationPath) . '/';
 
 chdir($applicationPath);
 
+// Init auto loader
+require_once($applicationPath . 'vendor/autoload.php');
+
 // Setup request and application
 App::initEnvironment();
 $app = new App(null, $timeStarted);
