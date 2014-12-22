@@ -32,7 +32,7 @@ class AppBaseConfig extends ConfigProvider
     {
         $config->connectionDetails = new PdoMySqlConnectionDetails();
 
-        $config->entityPaths[] = $this->app->path . 'modules/AppModule/source/Entities';
+        $config->entityPaths[] = $this->app->path . 'modules/AppModule/Entities';
 
         // $config->logQueries = true;
     }
