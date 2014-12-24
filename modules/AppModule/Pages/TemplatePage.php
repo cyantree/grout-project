@@ -6,6 +6,8 @@ use Grout\AppModule\Types\AppPage;
 
 class TemplatePage extends AppPage
 {
+    public $baseTemplate = 'base.html';
+
     public function parseTask()
     {
         $this->setTemplateResult($this->task->vars->get('template'), $this->task->vars->get('templateData'), array(
@@ -22,11 +24,11 @@ class TemplatePage extends AppPage
         $content = $this->factory()->templates()->load($template, $templateData)->content;
 
         $baseTemplate = $settings->get('baseTemplate');
-        if ($baseTemplate === null) {
-            $baseTemplate = 'AppModule::base.html';
+        if (!$baseTemplate && $baseTemplate !== false) {
+            $baseTemplate = $this->baseTemplate;
         }
 
-        if ($baseTemplate !== null && $baseTemplate !== false) {
+        if ($baseTemplate) {
             $content = $this->factory()->templates()->load($baseTemplate, array('content' => $content))->content;
         }
 
