@@ -24,6 +24,11 @@ class AppFactory extends GroutFactory
         parent::__construct();
     }
 
+    protected function onInit()
+    {
+        $this->getRootFactory()->linkTools(array('doctrine', 'doctrineModule', 'session', 'buckets', 'tasks'), $this);
+    }
+
     /** @return AppFactory */
     public static function get(App $app = null)
     {
