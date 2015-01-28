@@ -12,8 +12,6 @@ RewriteRule ^(.*)[^/]$ $1/ [QSA,L]
 # Skip existing assets
 RewriteCond %{SCRIPT_FILENAME} -f
 RewriteRule ^assets/(.*)$ - [QSA,L]
-RewriteCond %{SCRIPT_FILENAME} -f
-RewriteRule ^admin/assets/(.*)$ - [QSA,L]
 
 # Process all other requests with app
 RewriteRule .* index.php?%{QUERY_STRING}&Grout_Authorization=%{HTTP:AUTHORIZATION} [L]
