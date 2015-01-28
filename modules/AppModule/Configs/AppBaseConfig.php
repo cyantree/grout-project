@@ -42,7 +42,7 @@ class AppBaseConfig extends ConfigProvider
         $config->ignoreUploadSizeError = true;
         $config->terminateNoticeError = true;
         $config->convertErrorsToExceptions = true;
-        $config->mode = 'show';
+        $config->mode = 'log';
 
         // Uncomment and enter your reporting address
         // $config->email = 'mail@example.org';
