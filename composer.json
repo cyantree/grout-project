@@ -20,7 +20,7 @@
         "cyantree/grout-error-reporting-module": "2.*@dev",
         "cyantree/grout-logging-module": "2.*@dev",
         "cyantree/grout-mail-module": "3.*@dev",
-        "cyantree/grout-web-console-module": "2.*@dev",
+        "cyantree/grout-universal-console-module": "1.*@dev",
         "cyantree/grout-doctrine-module": "2.*@dev",
         "cyantree/grout-acl-module": "1.*@dev"
     },

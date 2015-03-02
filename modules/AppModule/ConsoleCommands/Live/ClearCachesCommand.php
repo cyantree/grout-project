@@ -1,9 +1,9 @@
 <?php
-namespace Grout\AppModule\WebConsoleCommands\Live;
+namespace Grout\AppModule\ConsoleCommands\Live;
 
-use Grout\AppModule\Types\AppWebConsoleCommand;
+use Grout\AppModule\Types\AppConsoleCommand;
 
-class ClearCachesCommand extends AppWebConsoleCommand
+class ClearCachesCommand extends AppConsoleCommand
 {
     public function execute()
     {
@@ -18,6 +18,6 @@ class ClearCachesCommand extends AppWebConsoleCommand
         // >> Add own stuff here
         // <<
 
-        $this->result->showSuccess('All caches have been recreated.');
+        $this->response->showSuccess('All caches have been recreated.');
     }
 }

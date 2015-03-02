@@ -1,11 +1,13 @@
 <?php
-namespace Grout\AppModule\WebConsoleCommands\Development;
+namespace Grout\AppModule\ConsoleCommands\Development;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use Grout\AppModule\Types\AppWebConsoleCommand;
+use Grout\AppModule\Types\AppConsoleCommand;
 
-class SetupCommand extends AppWebConsoleCommand
+class SetupCommand extends AppConsoleCommand
 {
+    private $liveDataPath;
+
     public function execute()
     {
         if (!$this->request->args->get('setup')) {
@@ -18,14 +20,14 @@ class SetupCommand extends AppWebConsoleCommand
 
     private function showHelp()
     {
-        $this->show('Execute with --setup to run setup.');
+        $this->response->showInfo('Execute with --setup to run setup.');
 
-        $this->show('--drop-database: Drops whole database and recreates all tables. Use with caution!');
+        $this->response->showInfo('--drop-database: Drops whole database and recreates all tables. Use with caution!');
     }
 
     private function setup()
     {
-        $this->show('Application will be set up.');
+        $this->response->showInfo('Application will be set up.');
 
         $factory = $this->factory();
 
@@ -50,6 +52,6 @@ class SetupCommand extends AppWebConsoleCommand
         // >> Add own stuff here
         // <<
 
-        $this->result->showSuccess('Application has been set up.');
+        $this->response->showSuccess('Application has been set up.');
     }
 }

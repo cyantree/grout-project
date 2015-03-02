@@ -11,5 +11,5 @@ class AppConfig
 
     public $mail = true;
 
-    public $webConsole = true;
+    public $console = true;
 }

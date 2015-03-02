@@ -11,9 +11,8 @@ use Grout\Cyantree\DoctrineModule\ConnectionDetails\PdoMySqlConnectionDetails;
 use Grout\Cyantree\DoctrineModule\Types\DoctrineConfig;
 use Grout\Cyantree\ErrorReportingModule\Types\ErrorReportingConfig;
 use Grout\Cyantree\LoggingModule\Types\LoggingConfig;
-use Grout\Cyantree\MailModule\MailModule;
 use Grout\Cyantree\MailModule\Types\MailConfig;
-use Grout\Cyantree\WebConsoleModule\Types\WebConsoleConfig;
+use Grout\Cyantree\UniversalConsoleModule\Types\UniversalConsoleConfig;
 
 class AppBaseConfig extends ConfigProvider
 {
@@ -62,13 +61,15 @@ class AppBaseConfig extends ConfigProvider
         // $config->to = 'mail@example.org';
     }
 
-    public function configureCyantreeWebConsoleModule(WebConsoleConfig $config)
+    public function configureCyantreeUniversalConsoleModule(UniversalConsoleConfig $config)
     {
+        $definition = $this->app->getComponentDefinition('AppModule');
+
         if ($this->app->getConfig()->developmentMode) {
-            $config->commandNamespaces[] = 'Grout\AppModule\WebConsoleCommands\Development\\';
+            $config->commandPaths[$definition->namespace . 'ConsoleCommands\Development\\'] = $definition->path . 'ConsoleCommands/Development/';
         }
 
-        $config->commandNamespaces[] = 'Grout\AppModule\WebConsoleCommands\Live\\';
+        $config->commandPaths[$definition->namespace . 'ConsoleCommands\Live\\'] = $definition->path . 'ConsoleCommands/Live/';
 
         $config->defaultCommand = 'Help';
     }
