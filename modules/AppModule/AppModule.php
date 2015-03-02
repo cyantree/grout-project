@@ -3,6 +3,7 @@ namespace Grout\AppModule;
 
 use Cyantree\Grout\App\ConfigChain;
 use Cyantree\Grout\App\Module;
+use Cyantree\Grout\App\Task;
 use Cyantree\Grout\App\Types\ResponseCode;
 
 use Cyantree\Grout\DateTime\DateTime;
@@ -71,7 +72,7 @@ class AppModule extends Module
         $this->addErrorRoute(ResponseCode::CODE_500, 'Pages\TemplatePage', array('template' => '500.html'));
     }
 
-    public function initTask($task)
+    public function initTask(Task $task)
     {
         // >> Init web console if needed
         if ($this->moduleConfig->webConsole && preg_match('!^internal/console/!', $task->request->url)) {

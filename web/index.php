@@ -1,6 +1,6 @@
 <?php
 use Cyantree\Grout\App\App;
-use Cyantree\Grout\App\Bootstrap;
+use Cyantree\Grout\App\WebBootstrap;
 use Cyantree\Grout\App\ConsoleBootstrap;
 
 $timeStarted = microtime(true);
@@ -11,36 +11,33 @@ while (ob_get_level()) {
     ob_end_clean();
 }
 
-$applicationPath = '../';
-$dataPath = $applicationPath . 'data/';
-
-$isConsole = php_sapi_name() == 'cli';
-
 // Update configuration to fit your setup
-$applicationPath = realpath(__DIR__ . '/' . $applicationPath) . '/';
+$applicationPath = '../';
 
-chdir($applicationPath);
+chdir(__DIR__ . '/' . $applicationPath);
+
 
 // Init auto loader
-require_once($applicationPath . 'vendor/autoload.php');
+require_once('vendor/autoload.php');
 
 // Setup request and application
 App::initEnvironment();
 $app = new App(null, $timeStarted);
-$app->dataPath = realpath(__DIR__ . '/' . $dataPath) . '/';
 
-if ($isConsole) {
-    $bootstrap = new ConsoleBootstrap($app);
-    $bootstrap->applicationPath = $applicationPath;
-    $request = $bootstrap->init();
+if (php_sapi_name() == 'cli') {
+    $bootstrap = new ConsoleBootstrap();
 
 } else {
-    $bootstrap = new Bootstrap($app);
-    $bootstrap->applicationPath = $applicationPath;
+    $bootstrap = new WebBootstrap();
     $bootstrap->usesModRewrite = true;
     $bootstrap->checkForMagicQuotes = true;
-    $request = $bootstrap->init();
 }
+
+$bootstrap->app = $app;
+$bootstrap->entryFilePath = __FILE__;
+
+$bootstrap->initApp();
+$request = $bootstrap->createRequest();
 
 $request->config->set('startupError', $startupError);
 
