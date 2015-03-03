@@ -6,8 +6,6 @@ use Grout\AppModule\Types\AppConsoleCommand;
 
 class SetupCommand extends AppConsoleCommand
 {
-    private $liveDataPath;
-
     public function execute()
     {
         if (!$this->request->args->get('setup')) {
