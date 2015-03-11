@@ -8,8 +8,9 @@ use Cyantree\Grout\Bucket\Bucket;
 use Cyantree\Grout\Bucket\FileBucket;
 use Cyantree\Grout\Event\Event;
 use Cyantree\Grout\Filter\ArrayFilter;
+use Cyantree\Grout\Job\Drivers\FilesystemDriver;
+use Cyantree\Grout\Job\JobQueue;
 use Cyantree\Grout\Session\BucketSession;
-use Cyantree\Grout\Task\TaskManager;
 use Cyantree\Grout\Ui\Ui;
 use Doctrine\ORM\EntityManager;
 use Grout\AppModule\Helpers\AppQuick;
@@ -93,13 +94,13 @@ class AppFactory extends GroutFactory
         return $tool;
     }
 
-    /** @return TaskManager */
-    public function tasks()
+    /** @return JobQueue */
+    public function jobs()
     {
         if (!($tool = $this->retrieveTool(__FUNCTION__))) {
-            $tool = new TaskManager();
-            $tool->directory = $this->app->dataStorage->createStorage('App\Tasks');
-            $tool->keepFailedTasks = true;
+            $driver = new FilesystemDriver($this->app->dataStorage->createStorage('App\Jobs'));
+
+            $tool = new JobQueue($driver);
 
             $this->setTool(__FUNCTION__, $tool);
         }
