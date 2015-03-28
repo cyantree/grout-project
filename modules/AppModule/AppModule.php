@@ -76,7 +76,7 @@ class AppModule extends Module
     {
         // >> Init web console if needed
         if ($this->moduleConfig->console && (preg_match('!^internal/console/!', $task->request->url) || $this->app->isConsole)) {
-            $this->app->importModule('Cyantree\WebConsoleModule', 'internal/console/');
+            $this->app->importModule('Cyantree\UniversalConsoleModule', 'internal/console/');
         }
     }
 }
