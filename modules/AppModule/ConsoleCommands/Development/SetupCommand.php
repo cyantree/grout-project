@@ -33,6 +33,8 @@ class SetupCommand extends AppConsoleCommand
 
         $this->app->dataStorage->deleteAllStorages();
         $this->app->cacheStorage->deleteAllStorages();
+        $this->app->dataStorage->warmUp();
+        $this->app->cacheStorage->warmUp();
 
         $schema = new SchemaTool($doctrine);
         $metadata = $doctrine->getMetadataFactory()->getAllMetadata();
