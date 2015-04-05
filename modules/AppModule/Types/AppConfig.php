@@ -7,7 +7,7 @@ class AppConfig
 
     public $errorReporting = true;
 
-    public $logging = true;
+    public $logging = false;
 
     public $mail = true;
 
