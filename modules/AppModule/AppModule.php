@@ -45,6 +45,9 @@ class AppModule extends Module
 
         if (!$this->app->getConfig()->developmentMode) {
             $acl->secureUrlRecursive('internal/', new AclRule('root'), 'Internal');
+
+        } else {
+            $acl->secureUrlRecursive('internal/', new AclRule('*', null, 10));
         }
 
         // >> Init logging
