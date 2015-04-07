@@ -11,6 +11,7 @@ use Cyantree\Grout\Filter\ArrayFilter;
 use Cyantree\Grout\Job\Drivers\FilesystemDriver;
 use Cyantree\Grout\Job\JobQueue;
 use Cyantree\Grout\Session\BucketSession;
+use Cyantree\Grout\Session\Session;
 use Cyantree\Grout\Ui\Ui;
 use Doctrine\ORM\EntityManager;
 use Grout\AppModule\Helpers\AppQuick;
@@ -49,7 +50,7 @@ class AppFactory extends GroutFactory
         return $tool;
     }
 
-    /** @return BucketSession */
+    /** @return Session */
     public function session()
     {
         if (!($tool = $this->retrieveTool(__FUNCTION__))) {
