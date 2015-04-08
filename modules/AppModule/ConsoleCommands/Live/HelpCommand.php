@@ -24,6 +24,7 @@ class HelpCommand extends AppConsoleCommand
 
     private function showLiveCommands()
     {
+        $this->response->showCommandLink('DeployAssets --deploy', 'Deploy component assets');
         $this->response->showCommandLink('ClearCaches', 'Recreate application caches');
         $this->response->showCommandLink('UpdateDatabaseSchema', 'Update database schema');
 
