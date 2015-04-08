@@ -28,7 +28,7 @@ class AppFactory extends GroutFactory
 
     protected function onInit()
     {
-        $this->getRootFactory()->linkTools(array('doctrine', 'doctrineModule', 'session', 'buckets', 'tasks'), $this);
+        $this->getRootFactory()->linkTools(array('doctrine', 'doctrineModule', 'session', 'buckets', 'jobs'), $this);
     }
 
     /** @return AppFactory */
