@@ -4,7 +4,6 @@ namespace Grout\AppModule;
 use Cyantree\Grout\App\ConfigChain;
 use Cyantree\Grout\App\Module;
 use Cyantree\Grout\App\Task;
-use Cyantree\Grout\App\Types\ResponseCode;
 
 use Cyantree\Grout\DateTime\DateTime;
 use DateTimeZone;
@@ -70,9 +69,9 @@ class AppModule extends Module
     {
         $this->addRoute('', 'Pages\WelcomePage');
 
-        $this->addErrorRoute(ResponseCode::CODE_403, 'Pages\TemplatePage', array('template' => '403.html'));
-        $this->addErrorRoute(ResponseCode::CODE_404, 'Pages\TemplatePage', array('template' => '404.html'));
-        $this->addErrorRoute(ResponseCode::CODE_500, 'Pages\TemplatePage', array('template' => '500.html'));
+        $this->addErrorRoute(403, 'Pages\TemplatePage', array('template' => '403.html'));
+        $this->addErrorRoute(404, 'Pages\TemplatePage', array('template' => '404.html'));
+        $this->addErrorRoute(500, 'Pages\TemplatePage', array('template' => '500.html'));
     }
 
     public function initTask(Task $task)
